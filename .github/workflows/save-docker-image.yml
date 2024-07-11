@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.inputs.docker_image }}-${{ github.event.inputs.docker_tag }}
-          path: ${{ github.event.inputs.docker_image }}-${{ github.event.inputs.docker_tag }}.tar
+          path: dockerimage.tar
