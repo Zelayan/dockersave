@@ -22,10 +22,10 @@ jobs:
         run: docker pull ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
 
       - name: Save Docker image as tar file
-        run: docker save -o ${{ github.event.inputs.docker_image }}-${{ github.event.inputs.docker_tag }}.tar ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
+        run: docker save -o image.tar ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
 
       - name: Upload Docker image tar as artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.inputs.docker_image }}-${{ github.event.inputs.docker_tag }}
-          path: dockerimage.tar
+          path: image.tar
