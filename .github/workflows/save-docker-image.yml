@@ -21,11 +21,18 @@ jobs:
       - name: Pull Docker image
         run: docker pull ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
 
+      - name: Set filename
+        id: set-filename
+        run: |
+          sanitized_image=$(echo "${{ github.event.inputs.docker_image }}" | sed 's|/|-|g')
+          filename="${sanitized_image}-${{ github.event.inputs.docker_tag }}.tar"
+          echo "filename=$filename" >> $GITHUB_ENV
+
       - name: Save Docker image as tar file
-        run: docker save -o image.tar ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
+        run: docker save -o ${{filename}} ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
 
       - name: Upload Docker image tar as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.inputs.docker_image }}-${{ github.event.inputs.docker_tag }}
-          path: image.tar
+          name: ${{filename}}
+          path: ${{filename}}
