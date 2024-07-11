@@ -29,10 +29,10 @@ jobs:
           echo "filename=$filename" >> $GITHUB_ENV
 
       - name: Save Docker image as tar file
-        run: docker save -o ${{filename}} ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
+        run: docker save -o ${{env.filename}} ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
 
       - name: Upload Docker image tar as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{filename}}
-          path: ${{filename}}
+          name: ${{env.filename}}
+          path: ${{env.filename}}
