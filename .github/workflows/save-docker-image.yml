@@ -32,7 +32,7 @@ jobs:
         run: docker save -o ${{env.filename}} ${{ github.event.inputs.docker_image }}:${{ github.event.inputs.docker_tag }}
 
       - name: Upload Docker image tar as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{env.filename}}
           path: ${{env.filename}}
